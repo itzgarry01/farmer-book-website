@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AgriStack Card Helper v5.3.4</title>
+    <style>
+        :root {
+            --primary: #1F8547;
+            --primary-hover: #166536;
+            --bg: #F8FAFC;
+            --card-bg: #FFFFFF;
+            --text-main: #1E293B;
+            --text-sub: #64748B;
+            --border: #E2E8F0;
+            --accent: #F1F5F9;
+        }
+
+        body {
+            width: 320px;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg);
+            color: var(--text-main);
+            margin: 0;
+            padding: 14px;
+            box-sizing: border-box;
+            user-select: none;
+            -webkit-user-select: none;
+            border-radius: 12px;
+        }
+
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 12px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .header-title h3 {
+            margin: 0;
+            font-size: 15px;
+            color: var(--primary);
+            font-weight: 700;
+        }
+
+        .badge {
+            background: #DCFCE7;
+            color: var(--primary);
+            font-size: 10px;
+            font-weight: 700;
+            padding: 2px 6px;
+            border-radius: 9999px;
+        }
+
+        .form-group {
+            margin-bottom: 10px;
+        }
+
+        .label-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 4px;
+        }
+
+        label {
+            display: block;
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--text-sub);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .state-badge {
+            font-size: 9px;
+            font-weight: 700;
+            color: #047857;
+            background: #ecfdf5;
+            border: 1px solid #d1fae5;
+            border-radius: 999px;
+            padding: 1px 7px;
+            text-transform: none;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 8px 10px;
+            box-sizing: border-box;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            font-size: 13px;
+            background: #FFFFFF;
+            color: var(--text-main);
+            transition: all 0.2s;
+        }
+
+        select {
+            cursor: pointer;
+            font-weight: 500;
+        }
+
+        input:focus, select:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 2px rgba(31, 133, 71, 0.15);
+        }
+
+        .info-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 10px 12px;
+            margin-bottom: 12px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+        }
+
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 12px;
+        }
+
+        .price-badge {
+            background: #FEF3C7;
+            color: #92400E;
+            font-size: 11px;
+            font-weight: 700;
+            padding: 2px 8px;
+            border-radius: 6px;
+        }
+
+        .btn-pay {
+            width: 100%;
+            background: linear-gradient(135deg, #1F8547 0%, #166536 100%);
+            color: #FFFFFF;
+            padding: 11px;
+            border: none;
+            border-radius: 9px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            transition: all 0.2s;
+            box-shadow: 0 2px 4px rgba(31, 133, 71, 0.25);
+        }
+
+        .btn-pay:hover {
+            opacity: 0.95;
+            transform: translateY(-1px);
+        }
+
+        button:disabled {
+            background: #94A3B8 !important;
+            color: #FFFFFF !important;
+            cursor: not-allowed !important;
+            transform: none !important;
+            box-shadow: none !important;
+        }
+
+        #status {
+            margin-top: 10px;
+            font-size: 11px;
+            line-height: 1.4;
+            color: var(--text-sub);
+            text-align: center;
+            padding: 8px;
+            border-radius: 8px;
+            background: var(--accent);
+        }
+
+        .status-success {
+            color: #166536 !important;
+            background: #DCFCE7 !important;
+            font-weight: 600;
+        }
+
+        .status-error {
+            color: #991B1B !important;
+            background: #FEE2E2 !important;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="header-title">
+            <h3>🌾 AgriStack Helper</h3>
+        </div>
+        <span class="badge">v5.3.4 Live</span>
+    </div>
+
+    <div id="recoveryCard" style="display:none; background:#F0FDF4; border:1px solid #BBF7D0; border-radius:8px; padding:10px; margin-bottom:12px;">
+        <div style="font-size:11px; font-weight:700; color:#166536; display:flex; justify-content:space-between; align-items:center;">
+            <span>🔄 Paid Card Ready</span>
+            <span id="recentTime" style="font-weight:normal; color:#475569; font-size:10px;"></span>
+        </div>
+        <div id="recentFarmerInfo" style="font-size:12px; font-weight:600; color:#1E293B; margin:4px 0 8px 0;"></div>
+        <button id="recentDlBtn" class="btn-pay" style="background:#166536; padding:8px 10px; font-size:12px;">
+            <span>⬇️</span> Download Paid Farmer Card PDF
+        </button>
+    </div>
+
+    <div class="form-group">
+        <div class="label-row">
+            <label for="stateSelect">State / Region</label>
+            <span id="stateAutoBadge" class="state-badge">Auto-Detect</span>
+        </div>
+        <select id="stateSelect">
+            <option value="AN">Andaman and Nicobar Islands</option>
+            <option value="AP">Andhra Pradesh</option>
+            <option value="AR">Arunachal Pradesh</option>
+            <option value="AS">Assam</option>
+            <option value="BR">Bihar</option>
+            <option value="CH">Chandigarh</option>
+            <option value="CG">Chhattisgarh</option>
+            <option value="DH">Dadra and Nagar Haveli and Daman and Diu</option>
+            <option value="DL">Delhi</option>
+            <option value="GA">Goa</option>
+            <option value="GJ">Gujarat</option>
+            <option value="HR">Haryana</option>
+            <option value="HP">Himachal Pradesh</option>
+            <option value="JK">Jammu and Kashmir</option>
+            <option value="JH">Jharkhand</option>
+            <option value="KA">Karnataka</option>
+            <option value="KL">Kerala</option>
+            <option value="LA">Ladakh</option>
+            <option value="LD">Lakshadweep</option>
+            <option value="MP">Madhya Pradesh</option>
+            <option value="MH">Maharashtra</option>
+            <option value="MN">Manipur</option>
+            <option value="ML">Meghalaya</option>
+            <option value="MZ">Mizoram</option>
+            <option value="NL">Nagaland</option>
+            <option value="OR">Odisha</option>
+            <option value="PY">Puducherry</option>
+            <option value="PB" selected>Punjab</option>
+            <option value="RJ">Rajasthan</option>
+            <option value="SK">Sikkim</option>
+            <option value="TN">Tamil Nadu</option>
+            <option value="TS">Telangana</option>
+            <option value="TR">Tripura</option>
+            <option value="UP">Uttar Pradesh</option>
+            <option value="UK">Uttarakhand</option>
+            <option value="WB">West Bengal</option>
+            <option value="IN">Central / All India</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <div class="label-row">
+            <label for="portalMode">Portal / Login Type</label>
+        </div>
+        <select id="portalMode">
+            <option value="csc" selected>🏛️ CSC VLE (Registration Form)</option>
+            <option value="registry">🌾 Self Farmer (View Farmer Details)</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label for="aadhaar">Aadhaar Number (Optional)</label>
+        <input type="text" id="aadhaar" placeholder="12-digit Aadhaar (e.g. 909999669245)" maxlength="12">
+    </div>
+
+    <div class="info-card">
+        <div class="info-row">
+            <span style="font-weight:600;">Generation Fee</span>
+            <span class="price-badge" style="background:#DCFCE7; color:#15803D; font-weight:700;">₹25</span>
+        </div>
+        <div style="font-size:10px; color:#64748B; margin-top:4px;">
+            Instant 300 DPI Official Print-Ready Card PDF
+        </div>
+    </div>
+
+    <button id="payBtn" class="btn-pay">
+        <span>🔒</span> Pay ₹25 & Generate Card
+    </button>
+
+    <div id="downloadContainer" style="display:none; margin-top:8px;">
+        <button id="downloadBtn" class="btn-pay" style="background:#166536;">
+            <span>⬇️</span> Download Farmer Card PDF
+        </button>
+    </div>
+
+    <div id="status">Make sure you are on the verified registry details page.</div>
+
+    <!-- DATA DISCLOSURE NOTICE: Required under Chrome Web Store User Data Privacy Policy -->
+    <div style="margin-top:12px; padding:10px; background:#F0FDF4; border:1px solid #BBF7D0; border-radius:6px; font-size:10px; color:#374151; line-height:1.5;">
+        <div style="font-weight:700; color:#166536; font-size:10px; margin-bottom:3px;">📋 Data Usage Disclosure</div>
+        Clicking "Pay &amp; Generate Card" reads farmer details (Name, ID, Village, District, State, Land records) from your active tab and sends them securely via HTTPS to our server to generate the PDF card. No personal data is stored after your download.
+        <div style="margin-top:5px;">
+            <a href="https://agristack-website.vercel.app/privacy.html" target="_blank" style="color:#1F8547; font-weight:700; text-decoration:underline;">Privacy Policy →</a>
+        </div>
+    </div>
+
+    <script src="popup.js"></script>
+</body>
+</html>

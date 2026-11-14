@@ -1,0 +1,45 @@
+{
+    "manifest_version": 3,
+    "name": "Farmer Card",
+    "version": "5.3.4",
+    "description": "Generate official 300 DPI Farmer ID card PDFs from AgriStack registry portals. Supports all 37 Indian States & Union Territories.",
+    "permissions": [
+        "activeTab",
+        "scripting",
+        "storage"
+    ],
+    "host_permissions": [
+        "https://farmer-card-f6fradh5cde3esgq.indiasouthcentral-01.azurewebsites.net/*",
+        "https://agristack-extension.onrender.com/*",
+        "https://agristack-extension-qaau.onrender.com/*",
+        "https://*.agristack.gov.in/*",
+        "https://*.gov.in/*"
+    ],
+    "action": {
+        "default_popup": "popup.html",
+        "default_icon": {
+            "16": "icons/icon16.png",
+            "32": "icons/icon32.png",
+            "48": "icons/icon48.png",
+            "128": "icons/icon128.png"
+        }
+    },
+    "icons": {
+        "16": "icons/icon16.png",
+        "32": "icons/icon32.png",
+        "48": "icons/icon48.png",
+        "128": "icons/icon128.png",
+        "512": "icons/icon512.png"
+    },
+    "browser_specific_settings": {
+        "gecko": {
+            "id": "agristack-card-helper@garry.dev",
+            "strict_min_version": "109.0",
+            "data_collection_permissions": {
+                "required": [
+                    "none"
+                ]
+            }
+        }
+    }
+}
