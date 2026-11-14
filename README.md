@@ -35,3 +35,4 @@ npm start
 1. Push this repository to GitHub.
 2. Go to [vercel.com](https://vercel.com) and import the repository.
 3. Deploy with default Next.js settings!
+
