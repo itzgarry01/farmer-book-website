@@ -1,0 +1,66 @@
+@import url('https://fonts.googleapis.com/css2?family=Mukta+Mahee:wght@400;500;600;700;800&family=Noto+Sans+Gurmukhi:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600;700;800;900&family=Poppins:wght@500;600;700;800;900&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --font-gurmukhi: 'Noto Sans Gurmukhi', 'Mukta Mahee', sans-serif;
+  --font-sans: 'Inter', 'Poppins', -apple-system, sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: #fafaf9;
+  color: #1e293b;
+  overflow-x: hidden;
+}
+
+.font-gurmukhi {
+  font-family: var(--font-gurmukhi);
+}
+
+/* Custom Earthy & Natural Farm Gradients */
+.bg-farm-gradient {
+  background: linear-gradient(135deg, #14532d 0%, #15803d 50%, #166534 100%);
+}
+
+.bg-harvest-gradient {
+  background: linear-gradient(135deg, #d97706 0%, #f59e0b 50%, #b45309 100%);
+}
+
+.bg-cream-card {
+  background-color: #fffdf9;
+  border-color: #fef08a;
+}
+
+.text-farm-title {
+  color: #14532d;
+}
+
+/* Smooth book perspective */
+.book-shadow {
+  box-shadow: 
+    -12px 14px 28px -6px rgba(20, 83, 45, 0.35),
+    -4px 6px 12px -2px rgba(0, 0, 0, 0.15),
+    inset 4px 0 8px rgba(255, 255, 255, 0.2);
+}
+
+.book-spine {
+  background: linear-gradient(90deg, #052e16 0%, #14532d 60%, #15803d 100%);
+}
+
+/* Subtle badge animations */
+@keyframes pulse-subtle {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.03); }
+}
+
+.animate-pulse-subtle {
+  animation: pulse-subtle 3s ease-in-out infinite;
+}
+
