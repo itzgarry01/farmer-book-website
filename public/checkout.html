@@ -471,6 +471,97 @@
             }
         }
 
+        async function triggerCardDownload() {
+            if (hasDownloaded || isDownloading) return;
+            isDownloading = true;
+
+            if (pollTimer) {
+                clearInterval(pollTimer);
+                pollTimer = null;
+            }
+
+            // Clean up any open Cashfree modal overlay iframe so user sees download & success state
+            try {
+                const cfModals = document.querySelectorAll('iframe[src*="cashfree"], div[class*="cashfree"], div[id*="cashfree"]');
+                cfModals.forEach(el => {
+                    try { el.remove(); } catch (_) {}
+                });
+            } catch (_) {}
+
+            const downloadUrl = isWebsiteBuyer
+                ? `${activeBackendServer}/download_book?session_id=${encodeURIComponent(sessionId)}`
+                : `${activeBackendServer}/download_card_file?session_id=${encodeURIComponent(sessionId)}`;
+
+            // Single unified download trigger (Blob fetch with clean file name and failover backup)
+            try {
+                let resp = null;
+                const endpoint = isWebsiteBuyer
+                    ? `/download_book?session_id=${encodeURIComponent(sessionId)}`
+                    : `/download_card_file?session_id=${encodeURIComponent(sessionId)}`;
+                try {
+                    const failoverDl = await checkoutFetchWithFailover(endpoint);
+                    resp = failoverDl.res;
+                } catch (_) {
+                    resp = await fetch(downloadUrl);
+                }
+
+                if (resp && resp.ok) {
+                    hasDownloaded = true;
+                    isDownloading = false;
+                    showSuccessState(downloadUrl);
+
+                    const blob = await resp.blob();
+                    const blobUrl = window.URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    if (isWebsiteBuyer) {
+                        a.download = "Modern_Indian_Agriculture_Handbook.pdf";
+                    } else {
+                        let cleanName = (orderData.farmer_name || "").trim().replace(/[^a-zA-Z0-9\s_-]/g, '').replace(/\s+/g, '_');
+                        if (!cleanName || cleanName.toLowerCase() === "verified_farmer" || cleanName.toLowerCase() === "farmer") {
+                            cleanName = orderData.farmer_id ? `Farmer_Card_${orderData.farmer_id}` : "Farmer_Card";
+                        } else {
+                            cleanName = `${cleanName}_Farmer_Card`;
+                        }
+                        a.download = `${cleanName}.pdf`;
+                    }
+                    a.href = blobUrl;
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
+                    setTimeout(() => {
+                        try { window.URL.revokeObjectURL(blobUrl); } catch (_) {}
+                    }, 10000);
+
+                    // Auto-close popup window after successful generation and download
+                    let secondsLeft = 3;
+                    if (statusBox) {
+                        statusBox.textContent = `🎉 Payment Complete! Card downloaded. Closing window in ${secondsLeft}s...`;
+                    }
+                    const autoCloseTimer = setInterval(() => {
+                        secondsLeft--;
+                        if (secondsLeft > 0) {
+                            if (statusBox) {
+                                statusBox.textContent = `🎉 Payment Complete! Card downloaded. Closing window in ${secondsLeft}s...`;
+                            }
+                        } else {
+                            clearInterval(autoCloseTimer);
+                            try { window.close(); } catch (_) {}
+                        }
+                    }, 1000);
+                } else {
+                    isDownloading = false;
+                    const errTxt = resp ? await resp.text().catch(() => "") : "";
+                    setStatus("❌ Payment Required: " + (errTxt || "Card payment not confirmed."), "error");
+                    if (payBtn) payBtn.disabled = false;
+                }
+            } catch (e) {
+                isDownloading = false;
+                console.warn("Direct blob download note:", e);
+                setStatus("❌ Download note: " + (e.message || "Failed to download"), "error");
+                if (payBtn) payBtn.disabled = false;
+            }
+        }
+
         async function checkOrderStatusOnce() {
             if (hasDownloaded || isDownloading || !sessionId) return;
             try {

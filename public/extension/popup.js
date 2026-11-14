@@ -662,6 +662,7 @@
                             }
 
                             // Prioritize chrome.windows.create to guarantee popup blockers do NOT suppress the payment window
+                            let checkoutWinId = null;
                             if (typeof chrome !== "undefined" && chrome.windows && chrome.windows.create) {
                                 chrome.windows.create({
                                     url: checkoutUrl,
@@ -670,6 +671,9 @@
                                     height: 720,
                                     focused: true
                                 }, function (createdWin) {
+                                    if (createdWin && createdWin.id) {
+                                        checkoutWinId = createdWin.id;
+                                    }
                                     if (chrome.runtime.lastError || !createdWin) {
                                         if (typeof chrome !== "undefined" && chrome.tabs && chrome.tabs.create) {
                                             chrome.tabs.create({ url: checkoutUrl });
@@ -695,11 +699,27 @@
                                             if (statusData && statusData.status === "paid" && !isCompleted) {
                                                 isCompleted = true;
                                                 clearInterval(pollTimer);
+                                                setStatus("🎉 Payment Complete! Downloading Official Farmer Card PDF...", "success");
                                                 showPaidDownload(sessionData.session_id, usedServer);
+
+                                                // Automatic once-download failsafe from extension
+                                                const dlUrl = usedServer + "/download_card_file?session_id=" + encodeURIComponent(sessionData.session_id);
+                                                if (typeof chrome !== "undefined" && chrome.tabs && chrome.tabs.create) {
+                                                    chrome.tabs.create({ url: dlUrl });
+                                                } else {
+                                                    window.open(dlUrl, "_blank");
+                                                }
+
+                                                // Auto-close the checkout popup window
+                                                if (checkoutWinId && typeof chrome !== "undefined" && chrome.windows && chrome.windows.remove) {
+                                                    setTimeout(function () {
+                                                        try { chrome.windows.remove(checkoutWinId); } catch (_) {}
+                                                    }, 2500);
+                                                }
                                             }
                                         })
                                         .catch(function () {});
-                                }, 2500);
+                                }, 2000);
 
                                 setTimeout(function () {
                                     clearInterval(pollTimer);
