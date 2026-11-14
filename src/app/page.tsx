@@ -39,9 +39,11 @@ function ReturnUrlHandler({ onPaymentSuccess }: { onPaymentSuccess: (orderData: 
 export default function HomePage() {
   const [isCheckoutOpen, setIsCheckoutOpen] = useState(false);
   const [verifiedOrderData, setVerifiedOrderData] = useState<any>(null);
+  const [modalKey, setModalKey] = useState(0);
 
   const handleOpenCheckout = () => {
     setVerifiedOrderData(null);
+    setModalKey((prev) => prev + 1);
     setIsCheckoutOpen(true);
   };
 
@@ -52,6 +54,7 @@ export default function HomePage() {
 
   const handlePaymentSuccess = (data: any) => {
     setVerifiedOrderData(data);
+    setModalKey((prev) => prev + 1);
     setIsCheckoutOpen(true);
   };
 
@@ -90,11 +93,14 @@ export default function HomePage() {
       <StickyBuyBar onBuyClick={handleOpenCheckout} />
 
       {/* Checkout & Instant Digital PDF Delivery Modal */}
-      <CheckoutModal 
-        isOpen={isCheckoutOpen} 
-        onClose={handleCloseCheckout} 
-        initialOrderData={verifiedOrderData}
-      />
+      {isCheckoutOpen && (
+        <CheckoutModal 
+          key={modalKey}
+          isOpen={isCheckoutOpen} 
+          onClose={handleCloseCheckout} 
+          initialOrderData={verifiedOrderData}
+        />
+      )}
 
       {/* Footer */}
       <Footer onBuyClick={handleOpenCheckout} />

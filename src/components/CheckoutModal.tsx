@@ -38,10 +38,23 @@ export default function CheckoutModal({ isOpen, onClose, initialOrderData }: Che
       setOrderData(initialOrderData);
       setStep('success');
       triggerConfetti();
+    } else {
+      setStep('form');
+      setOrderData(null);
     }
   }, [initialOrderData]);
 
   if (!isOpen) return null;
+
+  const handleCloseModal = () => {
+    setStep('form');
+    setOrderData(null);
+    setName('');
+    setPhone('');
+    setEmail('');
+    setErrorMessage('');
+    onClose();
+  };
 
   const triggerConfetti = () => {
     confetti({
@@ -143,7 +156,7 @@ export default function CheckoutModal({ isOpen, onClose, initialOrderData }: Che
         
         {/* Close Button */}
         <button
-          onClick={onClose}
+          onClick={handleCloseModal}
           className="absolute top-4 right-4 w-9 h-9 rounded-full bg-stone-100 hover:bg-stone-200 text-stone-600 flex items-center justify-center transition-colors z-20"
         >
           <X className="w-5 h-5" />
@@ -332,12 +345,29 @@ export default function CheckoutModal({ isOpen, onClose, initialOrderData }: Che
               ਡਾਊਨਲੋਡ ਲਿੰਕ ਤੁਹਾਡੇ ਮੋਬਾਈਲ/ਵਟਸਐਪ ਨੰਬਰ <strong>{phone || orderData?.customer?.customer_phone || ''}</strong> ਉੱਪਰ ਵੀ ਭੇਜ ਦਿੱਤਾ ਗਿਆ ਹੈ।
             </div>
 
-            <button
-              onClick={onClose}
-              className="text-xs text-stone-500 hover:text-stone-800 font-gurmukhi font-semibold underline"
-            >
-              ਬੰਦ ਕਰੋ (Close)
-            </button>
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-3 mt-4">
+              <button
+                type="button"
+                onClick={() => {
+                  setStep('form');
+                  setName('');
+                  setPhone('');
+                  setEmail('');
+                  setOrderData(null);
+                }}
+                className="w-full sm:w-auto text-xs bg-stone-100 hover:bg-stone-200 text-stone-700 font-gurmukhi font-bold py-2.5 px-4 rounded-xl border border-stone-300 transition-colors"
+              >
+                + ਦੂਜੀ ਕਾਪੀ ਖਰੀਦੋ / ਨਵਾਂ ਆਰਡਰ (New Order)
+              </button>
+
+              <button
+                type="button"
+                onClick={handleCloseModal}
+                className="w-full sm:w-auto text-xs text-stone-500 hover:text-stone-800 font-gurmukhi font-semibold underline py-2.5 px-3"
+              >
+                ਬੰਦ ਕਰੋ (Close)
+              </button>
+            </div>
 
           </div>
         )}
