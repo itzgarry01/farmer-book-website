@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Privacy Policy — Farmer Card Extension</title>
+  <meta name="description" content="Official Privacy Policy for Farmer Card Chrome Extension — User data collection, handling, storage, and sharing disclosures in compliance with Chrome Web Store Policy.">
+  <link rel="icon" type="image/png" href="icons/icon48.png">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .policy-container {
+      max-width: 860px;
+      margin: 40px auto 80px;
+      padding: 32px 24px;
+      background: #FFFFFF;
+      border: 1px solid #E2E8F0;
+      border-radius: 12px;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      color: #1E293B;
+      line-height: 1.7;
+    }
+    .policy-header {
+      border-bottom: 2px solid #F1F5F9;
+      padding-bottom: 20px;
+      margin-bottom: 28px;
+    }
+    .policy-header h1 {
+      font-size: 28px;
+      color: #0F172A;
+      margin: 0 0 8px 0;
+    }
+    .policy-header p {
+      color: #64748B;
+      font-size: 14px;
+      margin: 0;
+    }
+    .policy-section {
+      margin-bottom: 32px;
+    }
+    .policy-section h2 {
+      font-size: 20px;
+      color: #1E293B;
+      margin: 24px 0 12px 0;
+      border-left: 4px solid #1F8547;
+      padding-left: 12px;
+    }
+    .policy-section h3 {
+      font-size: 16px;
+      color: #334155;
+      margin: 16px 0 8px 0;
+    }
+    .policy-section p, .policy-section li {
+      font-size: 15px;
+      color: #475569;
+    }
+    .policy-section ul {
+      margin: 8px 0 16px 20px;
+    }
+    .policy-section table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 16px 0;
+      font-size: 14px;
+    }
+    .policy-section th, .policy-section td {
+      border: 1px solid #E2E8F0;
+      padding: 10px 14px;
+      text-align: left;
+    }
+    .policy-section th {
+      background: #F8FAFC;
+      color: #0F172A;
+      font-weight: 600;
+    }
+    .badge-highlight {
+      display: inline-block;
+      background: #DCFCE7;
+      color: #166536;
+      font-weight: 600;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 12px;
+    }
+    .back-nav {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 20px;
+      color: #1F8547;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 14px;
+    }
+    .back-nav:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body style="background: #F8FAFC; margin: 0; padding: 20px;">
+
+  <div class="policy-container">
+    <a href="index.html" class="back-nav">&larr; Back to Farmer Card Home</a>
+
+    <div class="policy-header">
+      <h1>Privacy Policy</h1>
+      <p><strong>Extension Name:</strong> Farmer Card (ID: <code>bipfbfoemiepfbmcxbckkedcggfpjogpa</code>)</p>
+      <p><strong>Effective Date:</strong> October 28, 2026 | <strong>Version:</strong> 5.3.3</p>
+      <p><strong>Developer / Operator:</strong> GURINDER SINGH, Bathinda, Punjab, India</p>
+    </div>
+
+    <div class="policy-section">
+      <p>This Privacy Policy provides clear, transparent disclosures regarding how the <strong>Farmer Card</strong> browser extension collects, handles, processes, stores, and protects user data in compliance with the Google Chrome Web Store Developer Program Policies.</p>
+    </div>
+
+    <div class="policy-section">
+      <h2>1. User Data Collection</h2>
+      <p>The Farmer Card extension is a specialized digital utility designed solely to assist registered farmers and CSC VLEs in generating printable 300 DPI Farmer ID card PDFs from official Indian State & Central Farmer Registry web portals.</p>
+      <p>We collect <strong>only the narrowest data strictly necessary</strong> to perform this function:</p>
+      <ul>
+        <li><strong>Farmer Registry Information (from Active Tab):</strong> When you explicitly click "Pay & Generate Card" while on an authorized farmer registry page, the extension reads the text content displayed on that specific webpage. This includes: Farmer Name, Farmer ID, Relative Name, Date of Birth / Gender, Village, District, State, and Landholding plot numbers.</li>
+        <li><strong>User-Supplied Input:</strong> If you enter the optional 4 masked Aadhaar digits (e.g. <code>XXXX XXXX 1234</code>) in the popup form, this is used solely for printing on the preview card face. We never collect or ask for full biometric or UIDAI data.</li>
+        <li><strong>Payment & Transaction Identifiers:</strong> Razorpay Order ID and Payment ID generated during transaction verification for license activation and refund processing.</li>
+      </ul>
+      <p><strong>Data We DO NOT Collect:</strong></p>
+      <ul>
+        <li>We do NOT collect browser history, browsing activities, or bookmarks.</li>
+        <li>We do NOT collect passwords, credentials, cookies, or authentication tokens.</li>
+        <li>We do NOT collect personal communications, emails, contacts, or location data.</li>
+        <li>We do NOT collect financial credentials, CVVs, PINs, or banking passwords (payments are handled entirely on Razorpay's secure PCI-DSS servers).</li>
+      </ul>
+    </div>
+
+    <div class="policy-section">
+      <h2>2. Data Handling & Purpose of Processing</h2>
+      <p>All data processed by Farmer Card is used exclusively for a single, transparent purpose:</p>
+      <ul>
+        <li><strong>Card Compilation & PDF Generation:</strong> To format the farmer's registry details into the standardized 300 DPI ID card graphic layout with regional font shaping (HarfBuzz) and export a printable double-sided PDF.</li>
+        <li><strong>Transaction Verification:</strong> To confirm with payment gateways (Razorpay) that a ₹20 generation service fee was paid before releasing the final card PDF download link.</li>
+      </ul>
+    </div>
+
+    <div class="policy-section">
+      <h2>3. Data Storage & Retention Policy</h2>
+      <ul>
+        <li><strong>In-Memory Ephemeral Processing:</strong> Webpage content transmitted to our backend rendering server is processed strictly in-memory (RAM) for the duration of the PDF rendering algorithm.</li>
+        <li><strong>No Long-Term Personal Data Storage:</strong> We do NOT save, index, or store personal farmer records in any persistent database, CRM, user profile, or marketing list.</li>
+        <li><strong>Automatic File Deletion:</strong> The generated PDF file is stored temporarily in a secure, ephemeral session cache solely to allow you to download your file. Temporary session files are automatically purged within 24 hours.</li>
+        <li><strong>Local Browser Storage:</strong> The extension uses <code>chrome.storage.local</code> solely on your computer to store your most recent active session ID so that if you accidentally close the popup during payment, your paid download can be recovered. This data remains on your device.</li>
+      </ul>
+    </div>
+
+    <div class="policy-section">
+      <h2>4. Data Sharing & Third Parties</h2>
+      <p>We strictly adhere to Google's Limited Use requirements:</p>
+      <table>
+        <thead>
+          <tr>
+            <th>Third Party</th>
+            <th>Purpose</th>
+            <th>Data Shared</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Microsoft Azure & Render</strong></td>
+            <td>Cloud Hosting & PDF Rendering Engine</td>
+            <td>Farmer registry text fields transmitted securely via HTTPS/TLS 1.3 solely for rendering.</td>
+          </tr>
+          <tr>
+            <td><strong>Razorpay Software Pvt. Ltd.</strong></td>
+            <td>Payment Processing (RBI Authorized & PCI-DSS Compliant)</td>
+            <td>Transaction amount, Order ID, and customer support email/phone provided by the user.</td>
+          </tr>
+        </tbody>
+      </table>
+      <p><strong>Zero Sale or Commercialization of User Data:</strong></p>
+      <ul>
+        <li>We <strong>NEVER</strong> sell, rent, trade, lease, or monetize user data to third parties, data brokers, advertising networks, or marketing companies.</li>
+        <li>We do <strong>NOT</strong> use personal data to display targeted advertisements or build commercial profiles.</li>
+      </ul>
+    </div>
+
+    <div class="policy-section">
+      <h2>5. Chrome Permissions Justification</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Permission</th>
+            <th>Technical Need & Minimum Scope</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>activeTab</code></td>
+            <td>Grants temporary access to the farmer registry tab only when the user explicitly clicks the extension popup icon.</td>
+          </tr>
+          <tr>
+            <td><code>scripting</code></td>
+            <td>Allows execution of the client-side parsing script (<code>pageDOMScraper</code>) to extract farmer registry fields from the active page.</td>
+          </tr>
+          <tr>
+            <td><code>storage</code></td>
+            <td>Permits storing the temporary <code>last_session</code> ID in local browser storage for payment recovery.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="policy-section">
+      <h2>6. Security Measures</h2>
+      <p>We implement industry-standard technical measures to safeguard your information:</p>
+      <ul>
+        <li><strong>TLS 1.3 / HTTPS Encryption:</strong> All communications between the extension, backend servers, and payment processors are encrypted in transit.</li>
+        <li><strong>Manifest V3 Compliance:</strong> All JavaScript executed is bundled locally within the extension package with no remote script execution or eval.</li>
+      </ul>
+    </div>
+
+    <div class="policy-section">
+      <h2>7. User Rights & Contact Information</h2>
+      <p>You have the right to request the deletion of any temporary session data, seek clarification, or report any privacy concern. You can contact the developer directly:</p>
+      <ul>
+        <li><strong>Developer & Data Controller:</strong> GURINDER SINGH</li>
+        <li><strong>Email:</strong> <a href="mailto:igxrry@gmail.com">igxrry@gmail.com</a></li>
+        <li><strong>Phone / WhatsApp:</strong> <a href="tel:+917009980800">+91 70099 80800</a></li>
+        <li><strong>Mailing Address:</strong> Bathinda, Punjab, India &mdash; 151001</li>
+        <li><strong>Official Website:</strong> <a href="https://agristack-website.vercel.app">https://agristack-website.vercel.app</a></li>
+      </ul>
+    </div>
+  </div>
+
+</body>
+</html>

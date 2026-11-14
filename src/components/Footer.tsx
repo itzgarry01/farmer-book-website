@@ -46,10 +46,11 @@ export default function Footer({ onBuyClick }: { onBuyClick: () => void }) {
               <li><a href="#chapters" className="hover:text-amber-400 transition-colors">ਵਿਸ਼ਾ ਸੂਚੀ (Table of Contents)</a></li>
               <li><a href="#benefits" className="hover:text-amber-400 transition-colors">ਖਰਚਾ ਬੱਚਤ ਕੈਲਕੁਲੇਟਰ</a></li>
               <li><a href="#faq" className="hover:text-amber-400 transition-colors">ਸਵਾਲ-ਜਵਾਬ (FAQ)</a></li>
-              <li className="pt-2 border-t border-stone-800"><a href="https://agristack-website.vercel.app/terms.html" target="_blank" rel="noopener noreferrer" className="hover:text-amber-400 transition-colors">Terms &amp; Conditions</a></li>
-              <li><a href="https://agristack-website.vercel.app/refund.html" target="_blank" rel="noopener noreferrer" className="hover:text-amber-400 transition-colors">Refund &amp; Cancellation</a></li>
-              <li><a href="https://agristack-website.vercel.app/shipping.html" target="_blank" rel="noopener noreferrer" className="hover:text-amber-400 transition-colors">Digital Delivery Policy</a></li>
-              <li><a href="https://agristack-website.vercel.app/contact.html" target="_blank" rel="noopener noreferrer" className="hover:text-amber-400 transition-colors">Contact Merchant</a></li>
+              <li className="pt-2 border-t border-stone-800"><a href="/terms.html" target="_blank" rel="noopener noreferrer" className="hover:text-amber-400 transition-colors">Terms &amp; Conditions</a></li>
+              <li><a href="/privacy.html" target="_blank" rel="noopener noreferrer" className="hover:text-amber-400 transition-colors">Privacy Policy</a></li>
+              <li><a href="/refund.html" target="_blank" rel="noopener noreferrer" className="hover:text-amber-400 transition-colors">Refund &amp; Cancellation</a></li>
+              <li><a href="/shipping.html" target="_blank" rel="noopener noreferrer" className="hover:text-amber-400 transition-colors">Digital Delivery Policy</a></li>
+              <li><a href="/contact.html" target="_blank" rel="noopener noreferrer" className="hover:text-amber-400 transition-colors">Contact Merchant</a></li>
             </ul>
           </div>
 

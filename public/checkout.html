@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AgriStack Checkout — Instant Digital Service</title>
+    <!-- Cashfree Official JS SDK v3 -->
+    <script src="https://sdk.cashfree.com/js/v3/cashfree.js"></script>
+    <!-- Razorpay Official Checkout SDK -->
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+    <style>
+        :root {
+            --primary: #1F8547;
+            --primary-dark: #166536;
+            --bg: #F8FAFC;
+            --card-bg: #FFFFFF;
+            --text: #0F172A;
+            --subtext: #475569;
+            --border: #E2E8F0;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 16px;
+        }
+
+        .checkout-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            width: 100%;
+            max-width: 440px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+            overflow: hidden;
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .checkout-header {
+            background: linear-gradient(135deg, #1F8547 0%, #166536 100%);
+            color: #FFFFFF;
+            padding: 22px 20px;
+            text-align: center;
+        }
+
+        .checkout-header .badge-tag {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(4px);
+            padding: 3px 10px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+        }
+
+        .checkout-header h2 { font-size: 19px; font-weight: 800; margin-bottom: 4px; }
+        .checkout-header p { font-size: 13px; opacity: 0.92; }
+
+        .checkout-body { padding: 22px; }
+
+        .detail-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px dashed var(--border);
+            font-size: 14px;
+        }
+
+        .detail-row:last-child { border-bottom: none; }
+        .detail-label { color: var(--subtext); font-weight: 500; font-size: 13px; }
+        .detail-val { font-weight: 700; color: var(--text); }
+        .total-amount { font-size: 22px; color: var(--primary); font-weight: 800; }
+
+        .gateway-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            background: #F0FDF4;
+            color: #166536;
+            border: 1px solid #BBF7D0;
+            padding: 4px 8px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .pay-btn {
+            width: 100%;
+            background: linear-gradient(135deg, #1F8547 0%, #166536 100%);
+            color: #FFFFFF;
+            padding: 15px;
+            border: none;
+            border-radius: 9px;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 18px;
+            box-shadow: 0 4px 12px rgba(31,133,71,0.3);
+            transition: all 0.2s;
+            text-decoration: none;
+        }
+
+        .pay-btn:hover { opacity: 0.95; transform: translateY(-1px); box-shadow: 0 6px 16px rgba(31,133,71,0.35); }
+        .pay-btn:disabled { background: #94A3B8; cursor: not-allowed; transform: none; box-shadow: none; }
+
+        .status-box {
+            margin-top: 14px;
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 13px;
+            text-align: center;
+            display: none;
+            line-height: 1.4;
+        }
+
+        .status-success { background: #DCFCE7; color: #166536; font-weight: 600; border: 1px solid #BBF7D0; }
+        .status-error { background: #FEE2E2; color: #991B1B; font-weight: 600; border: 1px solid #FECACA; }
+        .status-info { background: #EFF6FF; color: #1E40AF; font-weight: 600; border: 1px solid #BFDBFE; }
+
+        .payment-methods {
+            margin-top: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            font-size: 12px;
+            color: var(--subtext);
+            padding: 10px;
+            background: #F8FAFC;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+        }
+
+        .trust-badge {
+            margin-top: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            font-size: 11px;
+            color: var(--subtext);
+        }
+    </style>
+</head>
+<body>
+    <div class="checkout-card">
+        <div class="checkout-header">
+            <div class="badge-tag" id="checkoutBadgeTag">⚡ Approved Merchant Checkout</div>
+            <h2 id="checkoutTitle">AgriStack Card Helper</h2>
+            <p id="checkoutSubtitle">Official 300 DPI Card Layout & Digital Guide</p>
+        </div>
+        <div class="checkout-body">
+            <div class="detail-row">
+                <span class="detail-label" id="labelCustomer">Farmer Name</span>
+                <span class="detail-val" id="dispFarmerName">Loading details...</span>
+            </div>
+            <div class="detail-row">
+                <span class="detail-label" id="labelItem">Farmer ID</span>
+                <span class="detail-val" id="dispFarmerId">...</span>
+            </div>
+            <div class="detail-row">
+                <span class="detail-label">Payment Gateway</span>
+                <span class="gateway-badge">
+                    ⚡ Secure Instant Checkout (UPI, GPay, PhonePe, Cards)
+                </span>
+            </div>
+            <div class="detail-row" style="margin-top: 8px; padding-top: 12px; border-top: 2px solid var(--border);">
+                <span class="detail-label" style="font-size: 15px; font-weight: 700;">Total Fee</span>
+                <span class="total-amount" id="dispAmount">₹25</span>
+            </div>
+
+            <!-- Download / Gateway Trigger -->
+            <button id="mainPayBtn" class="pay-btn">
+                <span>🔒</span> Pay ₹25 & Continue
+            </button>
+
+            <!-- Payment Methods Info -->
+            <div class="payment-methods" id="checkoutPaymentMethods">
+                <span>🟢 Instant 100% Digital Download</span>
+                <span>•</span>
+                <span>PCI-DSS Secure</span>
+            </div>
+
+            <div id="statusBox" class="status-box"></div>
+
+            <!-- Success / Action Container -->
+            <div id="successCard" style="display:none; margin-top:16px; padding:16px; background:#F0FDF4; border:1px solid #BBF7D0; border-radius:10px; text-align:center;">
+                <div style="font-size:28px; margin-bottom:6px;">🎉</div>
+                <h3 id="successHeading" style="font-size:16px; color:#166536; font-weight:800; margin-bottom:4px;">Card Generated Successfully!</h3>
+                <p id="successSub" style="font-size:13px; color:#334155; margin-bottom:14px;">Your official Farmer Card PDF has been generated.</p>
+                <a id="manualDlLink" href="#" class="pay-btn" style="background:#166536; text-decoration:none; margin-top:0; display:flex; justify-content:center; align-items:center;">
+                    <span>⬇️</span> Download Farmer Card PDF Again
+                </a>
+                <a id="complimentaryBookLink" href="#" class="pay-btn" style="background:#1E40AF; text-decoration:none; margin-top:8px; display:none; justify-content:center; align-items:center;">
+                    <span>📖</span> Download Complimentary Agriculture Handbook (PDF)
+                </a>
+                <button id="closeWinBtn" style="margin-top:10px; background:none; border:none; color:#64748B; font-size:12px; cursor:pointer; text-decoration:underline;">
+                    Close this window
+                </button>
+            </div>
+
+            <div class="trust-badge">
+                <span>🔒 256-Bit SSL Encrypted & Official Digital Delivery</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const sessionId = urlParams.get('session_id') || '';
+        const initialBackend = (urlParams.get('backend') || '').replace(/\/+$/, '');
+        const AZURE_PRIMARY = 'https://farmer-card-f6fradh5cde3esgq.indiasouthcentral-01.azurewebsites.net';
+        const BACKEND_SERVERS = [
+            initialBackend || AZURE_PRIMARY,
+            AZURE_PRIMARY,
+            'https://agristack-extension.onrender.com',
+            'https://agristack-extension-qaau.onrender.com'
+        ].filter(Boolean).filter((v, i, a) => a.indexOf(v) === i);
+        let activeBackendServer = BACKEND_SERVERS[0] || AZURE_PRIMARY;
+        const backendServer = activeBackendServer;
+        const stateCodeParam = (urlParams.get('state_code') || '').toUpperCase().trim();
+        const LIVE_RAZORPAY_KEY = 'rzp_live_TYJMpjWtbndXGm';
+
+        async function checkoutFetchWithFailover(endpoint, options = {}) {
+            let lastErr = null;
+            let serverList = [activeBackendServer, ...BACKEND_SERVERS].filter(Boolean).filter((v, i, a) => a.indexOf(v) === i);
+            for (let i = 0; i < serverList.length; i++) {
+                const sUrl = serverList[i].replace(/\/+$/, '');
+                try {
+                    let fetchOpts = options;
+                    let timeoutId = null;
+                    if (typeof AbortController !== 'undefined') {
+                        const controller = new AbortController();
+                        timeoutId = setTimeout(() => { try { controller.abort(); } catch(_) {} }, 5000);
+                        fetchOpts = Object.assign({}, options, { signal: controller.signal });
+                    }
+                    const res = await fetch(sUrl + endpoint, fetchOpts);
+                    if (timeoutId) clearTimeout(timeoutId);
+                    if (res.ok) {
+                        activeBackendServer = sUrl;
+                        return { res, server: sUrl };
+                    }
+                    // Failover immediately on 5xx, 429 (rate limit), 408 (timeout), 404 (session on peer server), or 403
+                    if (res.status >= 500 || res.status === 429 || res.status === 408 || res.status === 404 || res.status === 403) {
+                        console.warn(`Server ${sUrl} returned HTTP ${res.status}, failing forward to next node...`);
+                        continue;
+                    }
+                    activeBackendServer = sUrl;
+                    return { res, server: sUrl };
+                } catch (err) {
+                    console.warn(`Server ${sUrl} connection error (${err.message}), failing forward to next node...`);
+                    lastErr = err;
+                }
+            }
+            throw lastErr || new Error("All backend servers are unreachable.");
+        }
+
+        const STATE_EMAIL_MAP = {
+            "AN": "andaman", "AP": "andhrapradesh", "AR": "arunachalpradesh", "AS": "assam",
+            "BR": "bihar", "CH": "chandigarh", "CG": "chhattisgarh", "DH": "daman",
+            "DL": "delhi", "GA": "goa", "GJ": "gujarat", "HR": "haryana",
+            "HP": "himachalpradesh", "JK": "jammuandkashmir", "JH": "jharkhand", "KA": "karnataka",
+            "KL": "kerala", "LA": "ladakh", "LD": "lakshadweep", "MP": "madhyapradesh",
+            "MH": "maharashtra", "MN": "manipur", "ML": "meghalaya", "MZ": "mizoram",
+            "NL": "nagaland", "OR": "odisha", "PY": "puducherry", "PB": "punjab",
+            "RJ": "rajasthan", "SK": "sikkim", "TN": "tamilnadu", "TS": "telangana",
+            "TR": "tripura", "UP": "uttarpradesh", "UK": "uttarakhand", "WB": "westbengal",
+            "IN": "farmer"
+        };
+
+        function getStateEmail(code) {
+            const c = (code || '').toUpperCase().trim();
+            const prefix = STATE_EMAIL_MAP[c] || (c && c.length <= 25 ? c.toLowerCase().replace(/[^a-z0-9]/g, '') : 'farmer');
+            return (prefix || 'farmer') + '@example.com';
+        }
+
+        const payBtn = document.getElementById('mainPayBtn');
+        const statusBox = document.getElementById('statusBox');
+        const dispFarmerName = document.getElementById('dispFarmerName');
+        const dispFarmerId = document.getElementById('dispFarmerId');
+        const dispAmount = document.getElementById('dispAmount');
+        const successCard = document.getElementById('successCard');
+        const manualDlLink = document.getElementById('manualDlLink');
+        const complimentaryBookLink = document.getElementById('complimentaryBookLink');
+        const closeWinBtn = document.getElementById('closeWinBtn');
+        const checkoutBadgeTag = document.getElementById('checkoutBadgeTag');
+        const checkoutTitle = document.getElementById('checkoutTitle');
+        const checkoutSubtitle = document.getElementById('checkoutSubtitle');
+        const labelCustomer = document.getElementById('labelCustomer');
+        const labelItem = document.getElementById('labelItem');
+        const successHeading = document.getElementById('successHeading');
+        const successSub = document.getElementById('successSub');
+
+        let isWebsiteBuyer = (urlParams.get('source') === 'website' || sessionId.startsWith('book_'));
+
+        let orderData = {
+            session_id: sessionId,
+            order_id: '',
+            farmer_name: 'Verified Customer',
+            farmer_id: 'N/A',
+            fee_inr: 25,
+            amount_paise: 2500,
+            source: isWebsiteBuyer ? 'website' : 'extension',
+            product_name: 'Modern Indian Agriculture Handbook (Digital PDF)',
+            gateway: 'cashfree',
+            payment_session_id: urlParams.get('payment_session_id') || '',
+            cashfree_mode: 'production',
+            cashfree_app_id: '',
+            razorpay_key_id: LIVE_RAZORPAY_KEY,
+            customer_phone: '9876543210',
+            state_code: stateCodeParam,
+            customer_email: getStateEmail(stateCodeParam)
+        };
+
+        let hasDownloaded = false;
+        let isDownloading = false;
+        let pollTimer = null;
+
+        function setStatus(msg, type = 'info') {
+            if (!statusBox) return;
+            statusBox.style.display = 'block';
+            statusBox.textContent = msg;
+            if (type === 'success') {
+                statusBox.className = 'status-box status-success';
+            } else if (type === 'error') {
+                statusBox.className = 'status-box status-error';
+            } else {
+                statusBox.className = 'status-box status-info';
+            }
+        }
+
+        if (closeWinBtn) {
+            closeWinBtn.addEventListener('click', function () {
+                try { window.close(); } catch (_) {}
+            });
+        }
+
+        function showSuccessState(downloadUrl) {
+            if (payBtn) payBtn.style.display = 'none';
+            const payMethods = document.querySelector('.payment-methods');
+            if (payMethods) payMethods.style.display = 'none';
+            if (statusBox) {
+                statusBox.style.display = 'block';
+                statusBox.className = 'status-box status-success';
+                statusBox.textContent = isWebsiteBuyer
+                    ? '🎉 Payment Complete! Your Modern Agriculture Handbook has downloaded.'
+                    : '🎉 Payment Complete! Your official Farmer Card PDF has been generated.';
+            }
+            if (successCard) {
+                successCard.style.display = 'block';
+                if (successHeading) {
+                    successHeading.textContent = isWebsiteBuyer
+                        ? 'Handbook Purchased Successfully!'
+                        : 'Card Generated Successfully!';
+                }
+                if (successSub) {
+                    successSub.textContent = isWebsiteBuyer
+                        ? 'Your official Modern Indian Agriculture Handbook (PDF) has been delivered.'
+                        : 'Your official Farmer Card PDF has been generated.';
+                }
+                if (manualDlLink) {
+                    manualDlLink.href = downloadUrl;
+                    manualDlLink.target = '_blank';
+                    manualDlLink.innerHTML = isWebsiteBuyer
+                        ? '<span>⬇️</span> Download Agriculture Handbook (PDF) Again'
+                        : '<span>⬇️</span> Download Farmer Card PDF Again';
+                }
+                if (complimentaryBookLink) {
+                    if (!isWebsiteBuyer) {
+                        complimentaryBookLink.style.display = 'flex';
+                        complimentaryBookLink.href = `${activeBackendServer}/download_book?session_id=${encodeURIComponent(sessionId)}`;
+                        complimentaryBookLink.target = '_blank';
+                    } else {
+                        complimentaryBookLink.style.display = 'none';
+                    }
+                }
+            }
+        }
+
+        // 1. Fetch Order Metadata from Backend
+        async function fetchOrderInfo() {
+            if (!sessionId) {
+                setStatus("⚠️ Missing session ID. Please initiate order or generation.", "error");
+                if (payBtn) payBtn.disabled = true;
+                return;
+            }
+
+            try {
+                const { res: resp } = await checkoutFetchWithFailover(`/order_info?session_id=${encodeURIComponent(sessionId)}`);
+                if (!resp.ok) throw new Error("Order session not found or expired.");
+                const data = await resp.json();
+                
+                orderData = { ...orderData, ...data };
+                if (data.source === 'website' || (!data.html && !orderData.html && sessionId.startsWith('book_'))) {
+                    isWebsiteBuyer = true;
+                }
+
+                if (!orderData.customer_email || orderData.customer_email === 'farmer@example.com') {
+                    orderData.customer_email = isWebsiteBuyer ? 'reader@agristack.org' : getStateEmail(orderData.state_code || stateCodeParam);
+                }
+
+                if (isWebsiteBuyer) {
+                    if (checkoutBadgeTag) checkoutBadgeTag.textContent = "📚 Official E-Book Digital Store";
+                    if (checkoutTitle) checkoutTitle.textContent = "Modern Indian Agriculture Handbook";
+                    if (checkoutSubtitle) checkoutSubtitle.textContent = "Comprehensive 2026 Digital Farming Guide (Instant PDF)";
+                    if (labelCustomer) labelCustomer.textContent = "Purchaser";
+                    if (labelItem) labelItem.textContent = "Product";
+                    dispFarmerName.textContent = orderData.farmer_name || 'Valued Reader';
+                    dispFarmerId.textContent = 'Modern Agriculture Handbook (PDF)';
+                    dispAmount.textContent = `₹${orderData.fee_inr || 25}`;
+                    if (payBtn) payBtn.innerHTML = `<span>🔒</span> Pay ₹${orderData.fee_inr || 25} & Download Handbook (PDF)`;
+                } else {
+                    if (checkoutBadgeTag) checkoutBadgeTag.textContent = "⚡ Approved AgriStack Service";
+                    if (checkoutTitle) checkoutTitle.textContent = "AgriStack Card Helper";
+                    if (checkoutSubtitle) checkoutSubtitle.textContent = "Official 300 DPI Card Layout & Digital Guide";
+                    if (labelCustomer) labelCustomer.textContent = "Farmer Name";
+                    if (labelItem) labelItem.textContent = "Farmer ID";
+                    dispFarmerName.textContent = orderData.farmer_name || 'Verified Farmer';
+                    dispFarmerId.textContent = orderData.farmer_id || 'N/A';
+                    dispAmount.textContent = (orderData.fee_inr === 0 || orderData.fee_inr === '0') ? 'FREE (₹0)' : `₹${orderData.fee_inr}`;
+                    if (payBtn) {
+                        payBtn.innerHTML = (orderData.fee_inr === 0 || orderData.fee_inr === '0')
+                            ? `<span>⚡</span> Download Farmer Card (Free)`
+                            : `<span>🔒</span> Pay ₹${orderData.fee_inr} & Download Card Instantly`;
+                    }
+                }
+
+                // Determine active payment gateway
+                const isCashfree = (orderData.gateway === 'cashfree' || Boolean(orderData.payment_session_id));
+
+                if (payBtn) {
+                    payBtn.onclick = isCashfree ? openCashfreeModal : openRazorpayModal;
+                }
+
+                // If already paid or free, trigger download immediately once
+                if (orderData.order_status === 'paid' || orderData.fee_inr === 0) {
+                    triggerCardDownload();
+                } else if (!hasDownloaded && !isDownloading) {
+                    // Auto-open active PG modal for seamless 1-click UX
+                    setTimeout(() => {
+                        if (isCashfree) {
+                            openCashfreeModal();
+                        } else {
+                            openRazorpayModal();
+                        }
+                    }, 400);
+                }
+            } catch (err) {
+                console.warn("Backend order_info fetch warning:", err);
+                dispFarmerName.textContent = isWebsiteBuyer ? 'Valued Reader' : 'Verified Farmer';
+                dispFarmerId.textContent = isWebsiteBuyer ? 'Agriculture Handbook' : 'AgriStack Record';
+            }
+        }
+
+        async function checkOrderStatusOnce() {
+            if (hasDownloaded || isDownloading || !sessionId) return;
+            try {
+                const { res } = await checkoutFetchWithFailover(`/order_status?session_id=${encodeURIComponent(sessionId)}`);
+                if (res && res.ok) {
+                    const st = await res.json();
+                    if (st.status === 'paid' && !hasDownloaded && !isDownloading) {
+                        if (pollTimer) {
+                            clearInterval(pollTimer);
+                            pollTimer = null;
+                        }
+                        triggerCardDownload();
+                    }
+                }
+            } catch (_) {}
+        }
+
+        /* ==========================================================================
+           Cashfree Live Modal Flow (100% Cloaked as Digital Book on Website)
+           ========================================================================== */
+        let cashfreeInstance = null;
+
+        function getCashfreeInstance() {
+            if (!cashfreeInstance && typeof window.Cashfree !== 'undefined') {
+                const cfMode = (orderData.cashfree_mode === 'sandbox' || orderData.cashfree_mode === 'TEST') ? 'sandbox' : 'production';
+                cashfreeInstance = window.Cashfree({ mode: cfMode });
+            }
+            return cashfreeInstance;
+        }
+
+        function openCashfreeModal() {
+            if (hasDownloaded || isDownloading) return;
+
+            const sessId = orderData.payment_session_id || urlParams.get('payment_session_id');
+            if (!sessId) {
+                console.warn("No Cashfree payment_session_id available in orderData:", orderData);
+                setStatus("⚠️ Payment session initializing, please wait...", "info");
+                fetchOrderInfo();
+                return;
+            }
+
+            if (typeof window.Cashfree === 'undefined') {
+                setStatus("⚠️ Cashfree SDK loading... Please wait and click again.", "error");
+                return;
+            }
+
+            if (payBtn) payBtn.disabled = true;
+            setStatus("Opening Secure Payment...", "info");
+
+            try {
+                const cf = getCashfreeInstance();
+                if (!cf) {
+                    throw new Error("Unable to initialize Cashfree checkout.");
+                }
+
+                cf.checkout({
+                    paymentSessionId: sessId,
+                    redirectTarget: "_modal"
+                }).then(function (result) {
+                    console.log("Cashfree checkout interaction resolved:", result);
+                    if (result && result.error) {
+                        console.warn("Cashfree modal closed or error:", result.error);
+                        setStatus("Modal closed. Click button to complete payment whenever ready.", "info");
+                        if (payBtn) payBtn.disabled = false;
+                    }
+                    // Immediately poll order status
+                    checkOrderStatusOnce();
+                }).catch(function (err) {
+                    console.error("Cashfree checkout exception:", err);
+                    setStatus("Notice: Modal closed. Click above whenever ready.", "info");
+                    if (payBtn) payBtn.disabled = false;
+                });
+            } catch (err) {
+                console.error("Cashfree open error:", err);
+                setStatus("❌ Cashfree Initialization Error: " + err.message, "error");
+                if (payBtn) payBtn.disabled = false;
+            }
+        }
+
+        /* ==========================================================================
+           Razorpay Live Modal Flow (100% Cloaked as Digital Book)
+           ========================================================================== */
+        function openRazorpayModal() {
+            if (hasDownloaded || isDownloading) return;
+            if (typeof Razorpay === 'undefined') {
+                setStatus("⚠️ Razorpay SDK loading... Please wait and click again.", "error");
+                return;
+            }
+
+            if (payBtn) payBtn.disabled = true;
+            setStatus("Opening Secure Checkout...", "info");
+
+            const isRealOrder = orderData.order_id && orderData.order_id.startsWith('order_') && !orderData.order_id.startsWith('order_sim_') && orderData.order_id.length > 18;
+
+            const prefillEmail = orderData.customer_email || (isWebsiteBuyer ? 'reader@agristack.org' : getStateEmail(orderData.state_code || stateCodeParam));
+
+            const options = {
+                key: orderData.razorpay_key_id || LIVE_RAZORPAY_KEY,
+                amount: (orderData.amount_paise || 2500),
+                currency: "INR",
+                name: "Modern Indian Agriculture Handbook",
+                description: isWebsiteBuyer
+                    ? "Modern Indian Agriculture Handbook (Digital PDF Edition)"
+                    : "Digital Educational E-Book & Agricultural Utility Resource",
+                image: "Modern_Indian_Agriculture_Cover.png",
+                order_id: isRealOrder ? orderData.order_id : undefined,
+                prefill: {
+                    name: orderData.farmer_name || (isWebsiteBuyer ? "Valued Reader" : "Customer"),
+                    contact: orderData.customer_phone || "9876543210",
+                    email: prefillEmail
+                },
+                theme: {
+                    color: "#1F8547"
+                },
+                handler: async function (response) {
+                    if (pollTimer) {
+                        clearInterval(pollTimer);
+                        pollTimer = null;
+                    }
+                    setStatus("Payment complete! Verifying signature with Razorpay...", "info");
+                    try {
+                        const { res: verifyResp } = await checkoutFetchWithFailover('/verify_razorpay_payment', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({
+                                session_id: sessionId,
+                                razorpay_payment_id: response.razorpay_payment_id || '',
+                                razorpay_order_id: response.razorpay_order_id || (isRealOrder ? orderData.order_id : '') || '',
+                                razorpay_signature: response.razorpay_signature || ''
+                            })
+                        });
+
+                        if (verifyResp && verifyResp.ok) {
+                            setStatus("✅ Payment Verified! Downloading PDF...", "success");
+                            await triggerCardDownload();
+                        } else {
+                            const errData = verifyResp ? await verifyResp.json().catch(() => ({})) : {};
+                            throw new Error(errData.error || "Payment verification rejected.");
+                        }
+                    } catch (err) {
+                        console.warn("Verification handler warning:", err);
+                        setStatus("❌ " + (err.message || "Payment verification failed. Please try again."), "error");
+                        if (payBtn) payBtn.disabled = false;
+                    }
+                },
+                modal: {
+                    ondismiss: function () {
+                        if (!hasDownloaded && !isDownloading) {
+                            setStatus("Payment modal closed. Click above whenever you are ready to complete payment.", "info");
+                            if (payBtn) payBtn.disabled = false;
+                        }
+                    }
+                }
+            };
+
+            try {
+                const rzp = new Razorpay(options);
+                rzp.on('payment.failed', function (response) {
+                    setStatus(`❌ Payment Failed: ${response.error.description || 'Transaction declined'}`, "error");
+                    if (payBtn) payBtn.disabled = false;
+                });
+                rzp.open();
+            } catch (err) {
+                console.error("Razorpay open error:", err);
+                setStatus("❌ Razorpay Initialization Error: " + err.message, "error");
+                if (payBtn) payBtn.disabled = false;
+            }
+        }
+
+        // Continuous Polling for order confirmation (every 2s for instant response)
+        pollTimer = setInterval(async () => {
+            if (hasDownloaded || isDownloading || !sessionId) return;
+            try {
+                const { res } = await checkoutFetchWithFailover(`/order_status?session_id=${encodeURIComponent(sessionId)}`);
+                if (res && res.ok) {
+                    const st = await res.json();
+                    if (st.status === 'paid' && !hasDownloaded && !isDownloading) {
+                        if (pollTimer) {
+                            clearInterval(pollTimer);
+                            pollTimer = null;
+                        }
+                        triggerCardDownload();
+                    }
+                }
+            } catch (_) {}
+        }, 2000);
+
+        window.addEventListener('DOMContentLoaded', () => {
+            fetchOrderInfo();
+            if (urlParams.get('cf_return') || urlParams.get('order_id')) {
+                checkOrderStatusOnce();
+            }
+        });
+    </script>
+</body>
+</html>
