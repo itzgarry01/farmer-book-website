@@ -424,7 +424,7 @@
                     if (checkoutSubtitle) checkoutSubtitle.textContent = "Comprehensive 2026 Digital Farming Guide (Instant PDF)";
                     if (labelCustomer) labelCustomer.textContent = "Purchaser";
                     if (labelItem) labelItem.textContent = "Product";
-                    dispFarmerName.textContent = orderData.farmer_name || 'Valued Reader';
+                    dispFarmerName.textContent = orderData.customer_name || orderData.farmer_name || 'Customer';
                     dispFarmerId.textContent = 'Modern Agriculture Handbook (PDF)';
                     dispAmount.textContent = `₹${orderData.fee_inr || 25}`;
                     if (payBtn) payBtn.innerHTML = `<span>🔒</span> Pay ₹${orderData.fee_inr || 25} & Download Handbook (PDF)`;
@@ -669,7 +669,7 @@
                 image: "Modern_Indian_Agriculture_Cover.png",
                 order_id: isRealOrder ? orderData.order_id : undefined,
                 prefill: {
-                    name: orderData.farmer_name || (isWebsiteBuyer ? "Valued Reader" : "Customer"),
+                    name: orderData.customer_name || orderData.farmer_name || "Customer",
                     contact: orderData.customer_phone || "9876543210",
                     email: prefillEmail
                 },
