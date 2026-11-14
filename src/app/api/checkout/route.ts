@@ -24,10 +24,11 @@ export async function POST(req: NextRequest) {
     }
 
     const orderId = `kisan_${Date.now()}_${Math.floor(100 + Math.random() * 900)}`;
-    const host = req.headers.get('host') || 'localhost:3000';
-    const protocol = host.includes('localhost') ? 'http' : 'https';
-    const origin = `${protocol}://${host}`;
-    const returnUrl = `${origin}/?order_id={order_id}`;
+    const host = req.headers.get('host') || 'kisan-di-fasal-guide.vercel.app';
+    // Cashfree production requires https:// for return_url
+    const returnUrl = host.includes('localhost')
+      ? 'https://kisan-di-fasal-guide.vercel.app/?order_id={order_id}'
+      : `https://${host}/?order_id={order_id}`;
 
     const customerEmail = (email && email.includes('@')) ? email.trim() : `farmer${cleanPhone}@gmail.com`;
 
