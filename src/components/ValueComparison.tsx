@@ -135,13 +135,13 @@ export default function ValueComparison({ onBuyClick }: { onBuyClick: () => void
                 ₹{estimatedSavings.toLocaleString('en-IN')}
               </div>
               <div className="text-[11px] text-stone-300 font-gurmukhi mb-4">
-                (ਸਿਰਫ਼ ₹199 ਦੀ ਕਿਤਾਬ ਤੁਹਾਡੇ ਹਜ਼ਾਰਾਂ ਰੁਪਏ ਬਚਾ ਸਕਦੀ ਹੈ)
+                (ਸਿਰਫ਼ ₹25 ਦੀ ਕਿਤਾਬ ਤੁਹਾਡੇ ਹਜ਼ਾਰਾਂ ਰੁਪਏ ਬਚਾ ਸਕਦੀ ਹੈ)
               </div>
               <button
                 onClick={onBuyClick}
                 className="w-full bg-amber-400 hover:bg-amber-300 text-amber-950 font-gurmukhi font-black text-sm py-2.5 px-4 rounded-xl shadow transition-all active:scale-95"
               >
-                ਹੁਣੇ ਕਿਤਾਬ ਪ੍ਰਾਪਤ ਕਰੋ (₹199)
+                ਹੁਣੇ ਕਿਤਾਬ ਪ੍ਰਾਪਤ ਕਰੋ (₹25)
               </button>
             </div>
           </div>

@@ -59,16 +59,33 @@ export default function CheckoutModal({ isOpen, onClose }: CheckoutModalProps) {
           name,
           phone,
           email,
-          amount: 199,
+          amount: 25,
           paymentMethod
         })
       });
 
       const data = await res.json();
       if (data.success) {
-        setOrderData(data);
-        setStep('success');
-        triggerConfetti();
+        if (data.paymentSessionId && typeof (window as any).Cashfree !== 'undefined') {
+          const cashfree = (window as any).Cashfree({ mode: "production" });
+          cashfree.checkout({
+            paymentSessionId: data.paymentSessionId,
+            redirectTarget: "_modal"
+          }).then((result: any) => {
+            if (result.error) {
+              console.warn("Cashfree checkout error/dismiss:", result.error);
+            }
+            if (result.paymentDetails) {
+              setOrderData(data);
+              setStep('success');
+              triggerConfetti();
+            }
+          });
+        } else {
+          setOrderData(data);
+          setStep('success');
+          triggerConfetti();
+        }
       } else {
         alert(data.error || 'ਭੁਗਤਾਨ ਵਿੱਚ ਕੋਈ ਸਮੱਸਿਆ ਆਈ।');
       }
@@ -125,7 +142,7 @@ export default function CheckoutModal({ isOpen, onClose }: CheckoutModalProps) {
               </span>
               <div className="flex items-baseline gap-2">
                 <span className="text-xs text-stone-400 line-through">₹499</span>
-                <span className="text-2xl font-black text-farm-900">₹199</span>
+                <span className="text-2xl font-black text-farm-900">₹25</span>
               </div>
             </div>
 
@@ -197,7 +214,7 @@ export default function CheckoutModal({ isOpen, onClose }: CheckoutModalProps) {
             
             <div className="text-center mb-4">
               <div className="text-xs text-stone-500 font-gurmukhi">ਭੁਗਤਾਨ ਕਰਨ ਵਾਲੇ: <strong>{name}</strong> ({phone})</div>
-              <div className="text-2xl font-black text-farm-900 mt-1">₹199 ਦਾ ਭੁਗਤਾਨ ਕਰੋ</div>
+              <div className="text-2xl font-black text-farm-900 mt-1">₹25 ਦਾ ਭੁਗਤਾਨ ਕਰੋ</div>
             </div>
 
             {/* Payment Method Selector */}
@@ -252,7 +269,7 @@ export default function CheckoutModal({ isOpen, onClose }: CheckoutModalProps) {
                   </div>
                 </div>
                 <div className="text-xs font-bold text-stone-700 font-gurmukhi">
-                  ਕਿਸੇ ਵੀ UPI ਐਪ ਨਾਲ ਸਕੈਨ ਕਰਕੇ ₹199 ਪੇਅ ਕਰੋ
+                  ਕਿਸੇ ਵੀ UPI ਐਪ ਨਾਲ ਸਕੈਨ ਕਰਕੇ ₹25 ਪੇਅ ਕਰੋ
                 </div>
               </div>
             )}
@@ -286,7 +303,7 @@ export default function CheckoutModal({ isOpen, onClose }: CheckoutModalProps) {
               ) : (
                 <>
                   <CheckCircle2 className="w-5 h-5 text-amber-300" />
-                  <span>₹199 ਦਾ ਭੁਗਤਾਨ ਕਰੋ ਅਤੇ ਕਿਤਾਬ ਲਵੋ</span>
+                  <span>₹25 ਦਾ ਭੁਗਤਾਨ ਕਰੋ ਅਤੇ ਕਿਤਾਬ ਲਵੋ</span>
                 </>
               )}
             </button>

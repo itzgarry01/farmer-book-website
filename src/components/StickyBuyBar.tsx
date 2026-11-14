@@ -35,10 +35,10 @@ export default function StickyBuyBar({ onBuyClick }: { onBuyClick: () => void })
               ਕਿਸਾਨ ਦੀ ਫਸਲ ਗਾਈਡ (ਸੰਪੂਰਨ ਹੈਂਡਬੁੱਕ)
             </div>
             <div className="flex items-baseline gap-2 text-xs">
-              <span className="font-black text-farm-900 text-sm sm:text-base">₹199</span>
+              <span className="font-black text-farm-900 text-sm sm:text-base">₹25</span>
               <span className="text-stone-400 line-through text-[11px]">₹499</span>
               <span className="text-[10px] bg-amber-100 text-amber-800 font-bold px-1.5 py-0.2 rounded font-gurmukhi">
-                60% ਛੋਟ
+                95% ਛੋਟ
               </span>
             </div>
           </div>
@@ -50,7 +50,7 @@ export default function StickyBuyBar({ onBuyClick }: { onBuyClick: () => void })
           className="flex items-center gap-2 bg-gradient-to-r from-farm-700 to-farm-800 hover:from-farm-800 hover:to-farm-900 text-white font-gurmukhi font-black text-xs sm:text-sm py-2.5 px-4 sm:px-6 rounded-xl shadow-lg transition-all active:scale-95 whitespace-nowrap border border-farm-500/50"
         >
           <Download className="w-4 h-4 text-amber-300" />
-          <span>ਹੁਣੇ ਡਾਊਨਲੋਡ ਕਰੋ (₹199)</span>
+          <span>ਹੁਣੇ ਡਾਊਨਲੋਡ ਕਰੋ (₹25)</span>
         </button>
 
       </div>

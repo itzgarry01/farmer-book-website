@@ -200,7 +200,7 @@ export default function BookPreviewCarousel({ onBuyClick }: BookPreviewProps) {
                 className="w-full flex items-center justify-center gap-2 bg-farm-700 hover:bg-farm-800 text-white font-gurmukhi font-black text-sm py-3 px-5 rounded-xl shadow-md transition-all active:scale-[0.99]"
               >
                 <Download className="w-4 h-4 text-amber-300" />
-                <span>ਸਾਰੇ 40 ਪੰਨੇ ਅਨਲਾਕ ਕਰੋ — ਸਿਰਫ਼ ₹199</span>
+                <span>ਸਾਰੇ 40 ਪੰਨੇ ਅਨਲਾਕ ਕਰੋ — ਸਿਰਫ਼ ₹25</span>
               </button>
               <div className="text-[11px] text-stone-500 text-center mt-2 font-gurmukhi">
                 ਤੁਰੰਤ PDF ਡਾਊਨਲੋਡ • ਕੋਈ ਉਡੀਕ ਨਹੀਂ • ਲਾਈਫਟਾਈਮ ਵਰਤੋਂ

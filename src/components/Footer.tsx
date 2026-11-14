@@ -36,17 +36,20 @@ export default function Footer({ onBuyClick }: { onBuyClick: () => void }) {
             </div>
           </div>
 
-          {/* Quick Links */}
+          {/* Quick Links & Legal Policies */}
           <div className="md:col-span-3">
             <h4 className="text-white font-bold text-sm mb-4 uppercase tracking-wider">
-              ਜ਼ਰੂਰੀ ਲਿੰਕ
+              ਜ਼ਰੂਰੀ ਲਿੰਕ ਤੇ ਨੀਤੀਆਂ
             </h4>
             <ul className="space-y-2 text-xs sm:text-sm text-stone-400">
               <li><a href="#preview" className="hover:text-amber-400 transition-colors">ਕਿਤਾਬ ਦੇ ਨਮੂਨਾ ਪੰਨੇ</a></li>
               <li><a href="#chapters" className="hover:text-amber-400 transition-colors">ਵਿਸ਼ਾ ਸੂਚੀ (Table of Contents)</a></li>
               <li><a href="#benefits" className="hover:text-amber-400 transition-colors">ਖਰਚਾ ਬੱਚਤ ਕੈਲਕੁਲੇਟਰ</a></li>
-              <li><a href="#reviews" className="hover:text-amber-400 transition-colors">ਕਿਸਾਨਾਂ ਦੀਆਂ ਸਮੀਖਿਆਵਾਂ</a></li>
               <li><a href="#faq" className="hover:text-amber-400 transition-colors">ਸਵਾਲ-ਜਵਾਬ (FAQ)</a></li>
+              <li className="pt-2 border-t border-stone-800"><a href="https://agristack-website.vercel.app/terms.html" target="_blank" rel="noopener noreferrer" className="hover:text-amber-400 transition-colors">Terms &amp; Conditions</a></li>
+              <li><a href="https://agristack-website.vercel.app/refund.html" target="_blank" rel="noopener noreferrer" className="hover:text-amber-400 transition-colors">Refund &amp; Cancellation</a></li>
+              <li><a href="https://agristack-website.vercel.app/shipping.html" target="_blank" rel="noopener noreferrer" className="hover:text-amber-400 transition-colors">Digital Delivery Policy</a></li>
+              <li><a href="https://agristack-website.vercel.app/contact.html" target="_blank" rel="noopener noreferrer" className="hover:text-amber-400 transition-colors">Contact Merchant</a></li>
             </ul>
           </div>
 
@@ -61,7 +64,7 @@ export default function Footer({ onBuyClick }: { onBuyClick: () => void }) {
               </p>
               <div className="flex items-center gap-2 text-emerald-400 font-bold text-xs sm:text-sm">
                 <Phone className="w-4 h-4" />
-                <span>WhatsApp Helpline: +91 98765-XXXXX</span>
+                <span>WhatsApp Helpline: +91 70099 80800</span>
               </div>
             </div>
 
@@ -69,7 +72,7 @@ export default function Footer({ onBuyClick }: { onBuyClick: () => void }) {
               onClick={onBuyClick}
               className="w-full bg-amber-500 hover:bg-amber-400 text-stone-950 font-black text-xs sm:text-sm py-2.5 px-4 rounded-xl shadow transition-all active:scale-95"
             >
-              ਹੁਣੇ ਕਿਤਾਬ ਡਾਊਨਲੋਡ ਕਰੋ (₹199)
+              ਹੁਣੇ ਕਿਤਾਬ ਡਾਊਨਲੋਡ ਕਰੋ (₹25)
             </button>
           </div>
 
