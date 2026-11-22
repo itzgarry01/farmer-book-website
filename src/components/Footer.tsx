@@ -65,7 +65,7 @@ export default function Footer({ onBuyClick }: { onBuyClick: () => void }) {
               </p>
               <div className="flex items-center gap-2 text-emerald-400 font-bold text-xs sm:text-sm">
                 <Phone className="w-4 h-4" />
-                <span>WhatsApp Helpline: +91 70099 80800</span>
+                <span>WhatsApp Helpline: +91 94175 41902</span>
               </div>
             </div>
 
