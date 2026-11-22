@@ -33,6 +33,11 @@ export default function RootLayout({
       <body className="min-h-screen bg-stone-50 text-slate-800 antialiased selection:bg-amber-200 selection:text-emerald-950">
         {children}
         <Script src="https://sdk.cashfree.com/js/v3/cashfree.js" strategy="afterInteractive" />
+        <Script
+          src="http://localhost:5001/widget/widget.js"
+          data-id="6b02ef4d7a4f4682d0a9d019"
+          strategy="afterInteractive"
+        />
       </body>
     </html>
   );
