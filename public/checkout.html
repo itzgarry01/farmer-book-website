@@ -185,12 +185,12 @@
             </div>
             <div class="detail-row" style="margin-top: 8px; padding-top: 12px; border-top: 2px solid var(--border);">
                 <span class="detail-label" style="font-size: 15px; font-weight: 700;">Total Fee</span>
-                <span class="total-amount" id="dispAmount">₹25</span>
+                <span class="total-amount" id="dispAmount">₹22</span>
             </div>
 
             <!-- Download / Gateway Trigger -->
             <button id="mainPayBtn" class="pay-btn">
-                <span>🔒</span> Pay ₹25 & Continue
+                <span>🔒</span> Pay ₹22 & Continue
             </button>
 
             <!-- Payment Methods Info -->
@@ -317,8 +317,8 @@
             order_id: '',
             farmer_name: 'Verified Customer',
             farmer_id: 'N/A',
-            fee_inr: 25,
-            amount_paise: 2500,
+            fee_inr: 22,
+            amount_paise: 2200,
             source: isWebsiteBuyer ? 'website' : 'extension',
             product_name: 'Modern Indian Agriculture Handbook (Digital PDF)',
             gateway: 'cashfree',
@@ -426,8 +426,8 @@
                     if (labelItem) labelItem.textContent = "Product";
                     dispFarmerName.textContent = orderData.customer_name || orderData.farmer_name || 'Customer';
                     dispFarmerId.textContent = 'Modern Agriculture Handbook (PDF)';
-                    dispAmount.textContent = `₹${orderData.fee_inr || 25}`;
-                    if (payBtn) payBtn.innerHTML = `<span>🔒</span> Pay ₹${orderData.fee_inr || 25} & Download Handbook (PDF)`;
+                    dispAmount.textContent = `₹${orderData.fee_inr || 22}`;
+                    if (payBtn) payBtn.innerHTML = `<span>🔒</span> Pay ₹${orderData.fee_inr || 22} & Download Handbook (PDF)`;
                 } else {
                     if (checkoutBadgeTag) checkoutBadgeTag.textContent = "⚡ Approved AgriStack Service";
                     if (checkoutTitle) checkoutTitle.textContent = "AgriStack Card Helper";
@@ -660,7 +660,7 @@
 
             const options = {
                 key: orderData.razorpay_key_id || LIVE_RAZORPAY_KEY,
-                amount: (orderData.amount_paise || 2500),
+                amount: (orderData.amount_paise || 2200),
                 currency: "INR",
                 name: "Modern Indian Agriculture Handbook",
                 description: isWebsiteBuyer

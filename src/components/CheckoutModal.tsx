@@ -89,7 +89,7 @@ export default function CheckoutModal({ isOpen, onClose, initialOrderData }: Che
           name: name.trim(),
           phone: cleanPhone,
           email: email.trim(),
-          amount: 25
+          amount: 22
         })
       });
 
@@ -192,7 +192,7 @@ export default function CheckoutModal({ isOpen, onClose, initialOrderData }: Che
               </div>
               <div className="flex items-baseline gap-2">
                 <span className="text-xs text-stone-400 line-through">₹499</span>
-                <span className="text-3xl font-black text-farm-900">₹25</span>
+                <span className="text-3xl font-black text-farm-900">₹22</span>
               </div>
             </div>
 
@@ -291,7 +291,7 @@ export default function CheckoutModal({ isOpen, onClose, initialOrderData }: Che
               ) : (
                 <>
                   <CheckCircle2 className="w-5 h-5 text-amber-300" />
-                  <span>₹25 ਦਾ ਭੁਗਤਾਨ ਕਰੋ (Pay ₹25 via UPI/Card)</span>
+                  <span>₹22 ਦਾ ਭੁਗਤਾਨ ਕਰੋ (Pay ₹22 via UPI/Card)</span>
                 </>
               )}
             </button>

@@ -57,10 +57,10 @@ export default function Hero({ onBuyClick }: HeroProps) {
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-stone-200">
                 <div>
                   <div className="flex items-baseline gap-3">
-                    <span className="text-3xl sm:text-4xl font-black text-farm-900">₹25</span>
+                    <span className="text-3xl sm:text-4xl font-black text-farm-900">₹22</span>
                     <span className="text-lg text-stone-400 line-through font-semibold">₹499</span>
                     <span className="bg-amber-100 text-amber-800 border border-amber-300 text-xs font-bold px-2.5 py-0.5 rounded-md">
-                      95% ਛੋਟ (ਸਿਰਫ਼ ₹25)
+                      95% ਛੋਟ (ਸਿਰਫ਼ ₹22)
                     </span>
                   </div>
                   <div className="text-xs text-stone-500 font-medium mt-1 font-gurmukhi">
@@ -80,7 +80,7 @@ export default function Hero({ onBuyClick }: HeroProps) {
                   className="flex-1 flex items-center justify-center gap-2.5 bg-gradient-to-r from-farm-700 via-farm-600 to-farm-700 hover:from-farm-800 hover:to-farm-800 text-white font-gurmukhi font-black text-base py-3.5 px-6 rounded-xl shadow-lg shadow-farm-900/25 hover:shadow-xl transition-all active:scale-[0.98] border border-farm-500/50"
                 >
                   <Download className="w-5 h-5 text-amber-300 animate-bounce" />
-                  <span>ਹੁਣੇ ਡਾਊਨਲੋਡ ਕਰੋ (ਸਿਰਫ਼ ₹25)</span>
+                  <span>ਹੁਣੇ ਡਾਊਨਲੋਡ ਕਰੋ (ਸਿਰਫ਼ ₹22)</span>
                 </button>
 
                 <a

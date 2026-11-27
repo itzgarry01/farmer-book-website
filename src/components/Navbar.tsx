@@ -17,7 +17,7 @@ export default function Navbar({ onBuyClick }: NavbarProps) {
             ਨਵੀਂ ਪੇਸ਼ਕਸ਼
           </span>
           <span className="font-gurmukhi text-xs sm:text-sm">
-            ਅੱਜ ਹੀ ਖਾਸ ਛੋਟ ਉੱਤੇ ਪ੍ਰਾਪਤ ਕਰੋ — ਸਿਰਫ਼ <span className="underline font-black text-amber-950">₹25</span> (ਅਸਲ ਮੁੱਲ ₹499) • ਤੁਰੰਤ PDF ਡਾਊਨਲੋਡ!
+            ਅੱਜ ਹੀ ਖਾਸ ਛੋਟ ਉੱਤੇ ਪ੍ਰਾਪਤ ਕਰੋ — ਸਿਰਫ਼ <span className="underline font-black text-amber-950">₹22</span> (ਅਸਲ ਮੁੱਲ ₹499) • ਤੁਰੰਤ PDF ਡਾਊਨਲੋਡ!
           </span>
         </div>
       </div>
@@ -69,7 +69,7 @@ export default function Navbar({ onBuyClick }: NavbarProps) {
               className="flex items-center gap-2 bg-gradient-to-r from-farm-700 to-farm-800 hover:from-farm-800 hover:to-farm-900 text-white font-gurmukhi font-bold text-xs sm:text-sm px-4 py-2.5 rounded-xl shadow-md shadow-farm-900/20 hover:shadow-lg transition-all active:scale-95 border border-farm-600/50"
             >
               <Download className="w-4 h-4 text-amber-300" />
-              <span>ਹੁਣੇ ਖਰੀਦੋ (₹25)</span>
+              <span>ਹੁਣੇ ਖਰੀਦੋ (₹22)</span>
             </button>
           </div>
 

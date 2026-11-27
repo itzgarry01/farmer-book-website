@@ -73,7 +73,7 @@ export default function Footer({ onBuyClick }: { onBuyClick: () => void }) {
               onClick={onBuyClick}
               className="w-full bg-amber-500 hover:bg-amber-400 text-stone-950 font-black text-xs sm:text-sm py-2.5 px-4 rounded-xl shadow transition-all active:scale-95"
             >
-              ਹੁਣੇ ਕਿਤਾਬ ਡਾਊਨਲੋਡ ਕਰੋ (₹25)
+              ਹੁਣੇ ਕਿਤਾਬ ਡਾਊਨਲੋਡ ਕਰੋ (₹22)
             </button>
           </div>
 

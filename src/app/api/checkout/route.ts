@@ -37,7 +37,7 @@ export async function POST(req: NextRequest) {
 
     const payload = {
       order_id: orderId,
-      order_amount: 25.00,
+      order_amount: 22.00,
       order_currency: 'INR',
       customer_details: {
         customer_id: `cust_${cleanPhone}`,
@@ -77,7 +77,7 @@ export async function POST(req: NextRequest) {
       orderId: cfData.order_id,
       cfOrderId: cfData.cf_order_id,
       paymentSessionId: cfData.payment_session_id,
-      amount: 25,
+      amount: 22,
       customer: { name, phone: cleanPhone, email: customerEmail }
     });
   } catch (err: any) {
